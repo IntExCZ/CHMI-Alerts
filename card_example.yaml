@@ -1,0 +1,28 @@
+- type: entities
+  entities:
+    - entity: sensor.chmi_alert
+  card_mod:
+    style:
+      hui-sensor-entity-row$:
+        hui-generic-entity-row$: |
+          .value { 
+            font-weight: bold; font-size: 1.6em; 
+            {% if state_attr('sensor.chmi_alert', 'severityLevel') == 0 %} 
+              color: limegreen !important;
+            {% endif %} 
+            {% if state_attr('sensor.chmi_alert', 'severityLevel') == 1 %} 
+              color: cyan !important;
+            {% endif %} 
+            {% if state_attr('sensor.chmi_alert', 'severityLevel') == 2 %} 
+              color: blue !important;
+            {% endif %} 
+            {% if state_attr('sensor.chmi_alert', 'severityLevel') == 3 %} 
+              color: yellow !important;
+            {% endif %}
+            {% if state_attr('sensor.chmi_alert', 'severityLevel') == 4 %} 
+              color: orange !important;
+            {% endif %} 
+            {% if state_attr('sensor.chmi_alert', 'severityLevel') == 5 %} 
+              color: red !important;
+            {% endif %} 
+          }
