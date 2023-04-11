@@ -12,7 +12,7 @@ The Python script downloads full XML alert list from CHMI and parses it (accordi
 # Installation
 1. Copy content from repository directory **python_scripts** to **/config/python_scripts** in your HA instance.
 2. Create HA CLI sensor (https://www.home-assistant.io/integrations/sensor.command_line/) - example in **chmi_sensor.yaml**.
-3. Edit the command line in sensor configuration (*command: "python3 /config/python_scripts/chmi_alert.py 5309"*) and change the *5309* (CISORP) parameter according to your location - find your location on: https://apl.czso.cz/iSMS/cisdet.jsp
+3. Edit the command line in sensor configuration (*command: "python3 /config/python_scripts/chmi_alert.py 5309"*) and change the *5309* (CISORP) parameter according to your location - find your location on: https://apl.czso.cz/iSMS/cisdet.jsp?kodcis=65
 4. Restart HA and the new configured entity would show up (you can change the update interval by *scan_interval:* parameter).
 
 # Future implementations
