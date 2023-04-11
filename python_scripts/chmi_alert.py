@@ -42,9 +42,8 @@ data = urllib.request.urlopen(URL)
 # konverze na slovnik
 source = xmltodict.parse(data)
 
-alerts = []
-
 # pruchod pres vystrahy
+alerts = []
 for alert_info in source['alert']['info']:
 	# jazyk hlaseni
 	if (alert_info['language'] != 'cs'):
