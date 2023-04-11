@@ -10,8 +10,8 @@ import urllib.request
 import xmltodict
 import json
 
-CISORP = "5309" # (string!) Pardubice
-if len(sys.argv) > 1:
+CISORP = "5309" # (string!) vychozi = Pardubice
+if (len(sys.argv) > 1):
 	CISORP = sys.argv[1] # CISORP z command-line parametru
 
 DEBUG = False # vsechny dostupne vystrahy (bez omezeni aktualniho data)
@@ -37,7 +37,7 @@ severity_int = {
 now = datetime.now().astimezone()
 
 # stazeni dat
-data = urllib.request.urlopen(URL) # it's a file like object and works just like a file
+data = urllib.request.urlopen(URL)
 
 # konverze na slovnik
 source = xmltodict.parse(data)
@@ -59,11 +59,9 @@ for alert_info in source['alert']['info']:
 	if (now > expire and not DEBUG):
 		continue; # jen aktualni hlaseni
 
-	# mesto hlaseni
-	cisorp_related = False
-	areaDesc = None
-
 	# pruchod pres oblasti
+	cisorp_related = False
+	area_desc = None
 	for area in alert_info['area']:
 
 		#pruchod pres mesta
@@ -73,7 +71,7 @@ for alert_info in source['alert']['info']:
 
 			if (city['valueName'] == 'CISORP' and city['value'] == CISORP):
 				cisorp_related = True
-				areaDesc = area['areaDesc']; # jakeho kraje se to tyka
+				area_desc = area['areaDesc']; # jakeho kraje se to tyka
 				break # tyka se mesta
 			
 		if (cisorp_related):
@@ -85,7 +83,7 @@ for alert_info in source['alert']['info']:
 	# vystraha
 	alert = {
 		'cisorp': CISORP,
-		'area': areaDesc,
+		'area': area_desc,
 		'event': alert_info['event'],
 		'onset': alert_info['onset'],
 		'expires': alert_info['expires'],
@@ -99,13 +97,13 @@ for alert_info in source['alert']['info']:
 
 
 # JSON vystup
-if len(alerts) == 0:
+if (len(alerts) == 0):
 	alert = {
 		'cisorp': CISORP,
 		'event': "Žádná výstraha",
 		'severityLevel': 0
 	}
-	print(json.dumps(alert)) # neni vystraha
+	print(json.dumps(alert)) # neni vystraha ("prazdne" hlaseni)
 else:
 	alerts.sort(key=lambda alert: alert['severityLevel'], reverse=True) # vyssi dulezitost nahore
 	print(json.dumps(alerts[0])) # pouze nejdulezitejsi vystraha
