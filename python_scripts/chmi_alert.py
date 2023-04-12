@@ -2,6 +2,7 @@
 
 #	Skript pro ziskani aktulani vystrahy pro zvolene mesto (na zaklade CISORP) z CHMI
 #	API dokumentace: https://www.chmi.cz/files/portal/docs/meteo/om/vystrahy/doc/Dokumentace_CAP.pdf
+#  	Ciselnik CISORP: https://apl.czso.cz/iSMS/cisdet.jsp?kodcis=65
 #	IntEx, 2023
 
 import sys
@@ -50,7 +51,7 @@ for alert_info in source['alert']['info']:
 		continue # jen ceska hlaseni
 	
 	# druh hlaseni
-	if (alert_info['responseType'] == 'None'):
+	if ('responseType' in alert_info and alert_info['responseType'] == 'None'):
 		continue; # jen aktivni hlaseni
 		
 	# datum hlaseni
