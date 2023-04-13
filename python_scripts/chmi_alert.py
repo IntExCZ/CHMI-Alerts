@@ -62,9 +62,11 @@ for alert_info in source['alert']['info']:
 	# pruchod pres oblasti
 	cisorp_related = False
 	area_desc = None
-	for area in alert_info['area']:
+	for area in alert_info['area']:		
+		if isinstance(area, str):
+			continue # nevalidni hodnota
 
-		#pruchod pres mesta
+		# pruchod pres mesta
 		for city in area['geocode']:
 			if isinstance(city, str):
 				continue # nevalidni hodnota
