@@ -8,21 +8,20 @@
           .value { 
             font-weight: bold; font-size: 1.6em; 
             {% if state_attr('sensor.chmi_alert', 'severityLevel') == 0 %} 
-              color: limegreen !important;
+              color: #28d861 !important; /* no alert */
             {% endif %} 
             {% if state_attr('sensor.chmi_alert', 'severityLevel') == 1 %} 
-              color: cyan !important;
+              color: #99ff00 !important; /* unknown/outlook */
             {% endif %} 
             {% if state_attr('sensor.chmi_alert', 'severityLevel') == 2 %} 
-              color: blue !important;
+              color: #99ff00 !important; /* minor */
             {% endif %} 
             {% if state_attr('sensor.chmi_alert', 'severityLevel') == 3 %} 
-              color: yellow !important;
+              color: #ffff00 !important; /* moderate */
             {% endif %}
             {% if state_attr('sensor.chmi_alert', 'severityLevel') == 4 %} 
-              color: orange !important;
+              color: #f38a39 !important; /* severe*/
             {% endif %} 
             {% if state_attr('sensor.chmi_alert', 'severityLevel') == 5 %} 
-              color: red !important;
-            {% endif %} 
-          }
+              color: #ff0000 !important; /* extrme */
+            {% endif %}
