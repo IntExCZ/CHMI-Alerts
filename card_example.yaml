@@ -23,5 +23,5 @@
               color: #f38a39 !important; /* severe */
             {% endif %} 
             {% if state_attr('sensor.chmi_alert', 'severityLevel') == 5 %} 
-              color: #ff0000 !important; /* extrme */
+              color: #ff0000 !important; /* extreme */
             {% endif %}
