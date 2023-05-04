@@ -22,7 +22,7 @@ URL = 'https://www.chmi.cz/files/portal/docs/meteo/om/bulletiny/XOCZ50_OKPR.xml'
 
 # stazeni dat
 try:
-	data = urllib.request.urlopen(URL)
+	data = urllib.request.urlopen(URL, timeout=30)
 except:
 	alert = {
 		'cisorp': CISORP,
