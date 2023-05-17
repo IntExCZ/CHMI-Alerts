@@ -131,7 +131,7 @@ try:
 			# pruchod pres mesta
 			if (scanGeocode(alert_info['area']['geocode'])):
 				cisorp_related = True
-				area_desc = alert_info['area']['areaDesc']; # jakeho kraje e to tyka	
+				area_desc = alert_info['area']['areaDesc']; # jakeho kraje se to tyka	
 		
 		if (isinstance(alert_info['area'], list)):
 			# vice kraju
@@ -142,7 +142,7 @@ try:
 				if (scanGeocode(area['geocode'])):
 					# tyka se mesta
 					cisorp_related = True
-					area_desc = area['areaDesc']; # jakeho kraje e to tyka
+					area_desc = area['areaDesc']; # jakeho kraje se to tyka
 					break
 				
 		if (DEBUG):
