@@ -164,8 +164,6 @@ try:
 			'instructions': alert_info['instruction']
 		}
 		alerts.append(alert) # pridani vystrahy do seznamu vystrah
-		
-		break # prvni shoda nalezena => konec
 
 except:
 	alert = {
