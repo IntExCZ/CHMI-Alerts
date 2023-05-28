@@ -106,15 +106,19 @@ try:
 			continue # jen aktivni
 			
 		# datum vystrahy
-		expire = datetime.fromisoformat(alert_info['expires'])
-		if (now > expire and not INCLUDE_EXPIRED):
-			continue # jen aktualni
-			
+		onset = alert_info['onset']
+		if ('expires' in alert_info):
+			expires = alert_info['expires']
+			if (now > datetime.fromisoformat(expires) and not INCLUDE_EXPIRED):
+				continue # jen aktualni
+		else:
+			expires = "-" # nezname (= do odvolani)	
+
 		if (DEBUG):
 			print("Event: " + alert_info['event'])
-			print("Onset: " + alert_info['onset'])
-			print("Expires: " + alert_info['expires'])
-			if (now > expire):
+			print("Onset: " + onset)
+			print("Expires: " + expires)
+			if ('expires' in alert_info and now > datetime.fromisoformat(expires)):
 				print("(expired)")
 
 		# prohledani zasazenych kraju
@@ -123,7 +127,7 @@ try:
 
 		cisorp_related = False
 		area_desc = None
-		
+
 		if (isinstance(alert_info['area'], dict)):
 			# jeden kraj
 			if (DEBUG):
@@ -156,8 +160,8 @@ try:
 			'cisorp': CISORP,
 			'area': area_desc,
 			'event': alert_info['event'],
-			'onset': alert_info['onset'],
-			'expires': alert_info['expires'],
+			'onset': onset,
+			'expires': expires,
 			'severityLevel': severity_int[alert_info['severity']],
 			'severity': severity_string[alert_info['severity']],
 			'description': alert_info['description'],
