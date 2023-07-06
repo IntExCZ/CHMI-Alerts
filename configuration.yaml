@@ -1,0 +1,16 @@
+command_line:
+  - sensor:
+      name: "CHMI Alert"
+      command: "python3 /config/python_scripts/chmi_alert.py 5309" # CISORP=5309 pro Pardubicky kraj/Pardubice
+      command_timeout: 40 # seconds
+      scan_interval: 300 # seconds
+      json_attributes:
+        - area
+        - onset
+        - expires
+        - severityLevel
+        - severity
+        - description
+        - instructions
+      value_template: "{{ value_json.event }}"
+  
