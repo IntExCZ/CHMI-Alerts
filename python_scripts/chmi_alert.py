@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 #	Skript pro ziskani aktulani vystrahy pro zvolene mesto (na zaklade CISORP) z CHMI
+#	GIT: https://github.com/IntExCZ/CHMI-Alerts
 #	API dokumentace: https://www.chmi.cz/files/portal/docs/meteo/om/vystrahy/doc/Dokumentace_CAP.pdf
 #  	Ciselnik CISORP: https://apl.czso.cz/iSMS/cisdet.jsp?kodcis=65
 #	IntEx, 2023
