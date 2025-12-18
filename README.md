@@ -15,6 +15,3 @@ The Python script downloads full XML alert list from CHMI and parses it (accordi
 3. Edit the command line in sensor configuration (*command: "python3 /config/python_scripts/chmi_alert.py 5309"*) and change the *5309* (CISORP) parameter according to your location - find your location on: https://apl.czso.cz/iSMS/cisdet.jsp?kodcis=65
 4. Add a card with sensor to your dashboard - example in **card_example.yaml**.
 5. Restart HA and the new configured entity would show up (you can change the update interval by *scan_interval:* parameter).
-
-# Future implementations
-Add "secondaryAlert" attribute(s) with information about alert with lower severity.
