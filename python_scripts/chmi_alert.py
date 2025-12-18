@@ -20,7 +20,7 @@ if (len(sys.argv) > 1):
 INCLUDE_EXPIRED = False # zahrnout vystrahy bez omezeni aktualniho data
 DEBUG = False # ladici informace
 
-URL = 'https://www.chmi.cz/files/portal/docs/meteo/om/bulletiny/XOCZ50_OKPR.xml'
+URL = 'https://vystrahy-cr.chmi.cz/data/XOCZ50_OKPR.xml'
 
 # stazeni dat
 try:
