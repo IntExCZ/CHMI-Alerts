@@ -1,30 +1,52 @@
 #!/usr/bin/python3
 
 #	Skript pro ziskani aktulani vystrahy pro zvolene mesto (na zaklade CISORP) z CHMI
-#	GIT: https://github.com/IntExCZ/CHMI-Alerts
-#	API dokumentace: https://www.chmi.cz/files/portal/docs/meteo/om/vystrahy/doc/Dokumentace_CAP.pdf
+#	API dokumentace: https://opendata.chmi.cz/meteorology/weather/alerts/metadata/Dokumentace_CAP.pdf
 #  	Ciselnik CISORP: https://apl.czso.cz/iSMS/cisdet.jsp?kodcis=65
-#	IntEx, 2023
+#	IntEx, 2025
 
 import sys
 from datetime import datetime
-import urllib.request
+from urllib.request import urlopen
 import xmltodict
 import json
+import base64
 import traceback
 
-CISORP = "5309" # (string!) vychozi = Pardubice
-if (len(sys.argv) > 1):
-	CISORP = sys.argv[1] # CISORP z command-line parametru
-
+# konfigugrace
 INCLUDE_EXPIRED = False # zahrnout vystrahy bez omezeni aktualniho data
 DEBUG = False # ladici informace
+URL_DATA = 'https://vystrahy-cr.chmi.cz/data/XOCZ50_OKPR.xml' # cesta k datovemu XML
+URL_MAP = "https://data-provider.chmi.cz/api/cap/data/all/cap-all-cr" # cesta k mapovemu zdroji (JSON s obrazkem v "content")
+CISORP = "5309" # (string!) vychozi = Pardubice
 
-URL = 'https://vystrahy-cr.chmi.cz/data/XOCZ50_OKPR.xml'
+# command-line parametry
+# CISORP (required)
+if (len(sys.argv) > 1):
+	CISORP = sys.argv[1]
+
+# stazeni mapy v PNG (optional) 
+if (len(sys.argv) > 2):
+    try:
+        output_path = sys.argv[2] # /config/www/chmi_alert_map.png
+        with urlopen(URL_MAP) as response:
+            data = json.load(response)
+        png_bytes = base64.b64decode(data["content"])
+        with open(output_path, "wb") as f:
+            f.write(png_bytes)
+    except:
+    	alert = {
+    		'cisorp': CISORP,
+    		'event': "Chyba stažení mapy!",
+    		'description': traceback.format_exc(), 
+    		'severityLevel': 5
+    	}
+    	print(json.dumps(alert)) # chyba stazeni dat
+    	exit() # konec skriptu
 
 # stazeni dat
 try:
-	data = urllib.request.urlopen(URL, timeout=30)
+	data = urlopen(URL_DATA, timeout=30)
 except:
 	alert = {
 		'cisorp': CISORP,
@@ -35,7 +57,7 @@ except:
 	print(json.dumps(alert)) # chyba stazeni dat
 	exit() # konec skriptu
 
-# konverze na slovnik
+# konverze zdrojovych dat na slovnik
 try:
 	source = xmltodict.parse(data)
 except:
@@ -65,7 +87,7 @@ severity_int = {
 }
 now = datetime.now().astimezone()
 
-# Hledani geocodu
+# hledani geocodu
 def scanGeocode(gcListOrDict):
 	if (isinstance(gcListOrDict, dict)):
 		# slovnik (jeden gc)
