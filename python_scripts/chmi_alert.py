@@ -8,6 +8,7 @@
 import sys
 from datetime import datetime
 from urllib.request import urlopen
+from pathlib import Path
 import xmltodict
 import json
 import base64
@@ -35,14 +36,15 @@ if (len(sys.argv) > 2):
         with open(output_path, "wb") as f:
             f.write(png_bytes)
     except:
-    	alert = {
-    		'cisorp': CISORP,
-    		'event': "Chyba stažení mapy!",
-    		'description': traceback.format_exc(), 
-    		'severityLevel': 5
-    	}
-    	print(json.dumps(alert)) # chyba stazeni dat
-    	exit() # konec skriptu
+        alert = {
+            'cisorp': CISORP,
+            'event': "Chyba stažení mapy!",
+            'description': traceback.format_exc(), 
+            'severityLevel': 5
+        }
+        print(json.dumps(alert)) # chyba stazeni mapy
+        Path(output_path).unlink(missing_ok=True) # smazani stare mapy, pokud existuje
+        exit() # konec skriptu
 
 # stazeni dat
 try:
