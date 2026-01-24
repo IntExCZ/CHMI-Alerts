@@ -17,7 +17,7 @@ import traceback
 # konfigugrace
 INCLUDE_EXPIRED = False # zahrnout vystrahy bez omezeni aktualniho data
 DEBUG = False # ladici informace
-URL_DATA = 'https://vystrahy-cr.chmi.cz/data/XOCZ50_OKPR.xml' # cesta k datovemu XML
+URL_DATA = 'https://vystrahy-cr.chmi.cz/data2/XOCZ50_OKPR.xml' # cesta k datovemu XML
 URL_MAP = "https://data-provider.chmi.cz/api/cap/data/all/cap-all-cr" # cesta k mapovemu zdroji (JSON s obrazkem v "content")
 CISORP = "5309" # (string!) vychozi = Pardubice
 
