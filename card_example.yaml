@@ -1,3 +1,9 @@
+- type: picture
+  image:
+    media_content_id: /local/chmi_alert_map.png
+  tap_action:
+    action: url
+    url_path: https://vystrahy-cr.chmi.cz
 - type: entities
   entities:
     - entity: sensor.chmi_alert
